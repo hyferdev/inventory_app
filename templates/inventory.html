@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form input {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inventory Management</h1>
+    <form action="/check_in" method="POST">
+        <h3>Check In</h3>
+        <label for="item_name">Item Name:</label>
+        <input type="text" id="item_name" name="item_name" required><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+        <button type="submit">Check In</button>
+    </form>
+
+    <form action="/check_out" method="POST">
+        <h3>Check Out</h3>
+        <label for="item_name">Item Name:</label>
+        <input type="text" id="item_name" name="item_name" required><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+        <button type="submit">Check Out</button>
+    </form>
+
+    <h3>Current Inventory</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if inventory %}
+                {% for item, quantity in inventory.items() %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ quantity }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="2">No items in inventory.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
+
